@@ -11,27 +11,17 @@ import {
     Modal,
   } from 'react-native';
 
-
-import { Ionicons } from '@expo/vector-icons';
-
-
-
-const Home = () => {
-    
-    
-
+const ProfileScreen = () => {
     return (
         <SafeAreaView>
             <View>
-                <Text style={{ padding: 100, fontSize: 16 }}>
-                    Welcome to HFMD Application
+                <Text style={{ padding: 10, fontSize: 16 }}>
+                    ProfileScreen
                 </Text>
-                <Ionicons name="medkit" size={100} ></Ionicons>
-                    
             </View>
         </SafeAreaView>
     )
 }
 
 
-export default Home;
+export default ProfileScreen;
