@@ -7,55 +7,63 @@ import {
   View,
 } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
-import * as Permissions from 'expo-permissions';
+import * as Location from 'expo-location';
+
 import { Ionicons } from '@expo/vector-icons';
 
 const { width, height } = Dimensions.get('screen');
 
 const Camera = ({ handleUpload }) => {
 
-  const pickFromCamera = async () => {
-    try {
-      const { granted } = await Permissions.askAsync(Permissions.CAMERA);
-      if (granted) {
-        let data = await ImagePicker.launchCameraAsync({
-          mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [1, 1],
-          quality: 1, //1 means high quality
-        });
-        if (!data.cancelled) {
-          let newFile = {
-            uri: data.uri,
-            type: `test/${data.uri.split('.')[1]}`,
-            name: `test.${data.uri.split('.')[1]}`,
-          };
-          handleUpload(newFile);
-        }
-      } else {
-        alert('You need to give permissions');
-      }
-    } catch (err) {
-      console.log(err);
-    }
-  };
+  // const pickFromCamera = async () => {
+  //   try {
+  //     const { granted } = await ImagePicker.requestCameraPermissionsAsync();
+  //     if (granted) {
+  //       let data = await ImagePicker.launchCameraAsync({
+  //         mediaTypes: ImagePicker.MediaTypeOptions.Images,
+  //         quality: 1, //1 means high quality
+  //       });
+  //       console.log(data);
+  //       if (!data.canceled) {
+  //         let newFile = {
+  //           type: data.assets[0].type,
+  //           name: data.assets[0].fileName,
+  //           uri: data.assets[0].uri,
+            
+  //         };
+  //         handleUpload(newFile);
+  //       }
+  //     } else {
+  //       alert('You need to give permissions');
+  //     }
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
 
   const pickFromGallery = async () => {
     try {
-      const { granted } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      const { granted } = await ImagePicker.requestMediaLibraryPermissionsAsync();
       if (granted) {
         let data = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
-          allowsEditing: true,
-          aspect: [1, 1],
           quality: 1, //1 means high quality
+          // base64: true,
+
         });
-        if (!data.cancelled) {
-          let newFile = {
-            uri: data.uri,
-            type: `test/${data.uri.split('.')[1]}`,
-            name: `test.${data.uri.split('.')[1]}`,
-          };
+        if (!data.canceled) {
+          console.log(data);
+          console.log(data.assets[0].uri)
+          let newFile = 
+          
+          data.assets[0].uri;
+          // data.assets[0].uri.split(",")[1]; //test web
+          // { 
+          //   uri: data.assets[0].uri.split(",")[1],
+          //   type: data.assets[0].type.split(",")[1],
+          //   name: data.assets[0].fileName.split(",")[1],
+          // };
+          console.log(newFile)
           handleUpload(newFile);
         }
       } else {
@@ -83,7 +91,24 @@ const Camera = ({ handleUpload }) => {
           </Text>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity shadowless style={styles.tab} onPress={pickFromCamera}>
+      
+      <TouchableOpacity shadowless style={styles.tab} onPress={pickFromGallery}>
+        <View
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            padding: 10,
+            justifyContent: 'center',
+          }}
+        >
+          <Ionicons name='images-sharp' size={18} color='#fff' />
+          <Text size={16} style={styles.tabTitle}>
+            {'From Gallery existing user'}
+          </Text>
+        </View>
+      </TouchableOpacity>
+
+      {/* <TouchableOpacity shadowless style={styles.tab} onPress={pickFromCamera}>
         <View
           style={{
             display: 'flex',
@@ -97,10 +122,12 @@ const Camera = ({ handleUpload }) => {
             {'From Camera'}
           </Text>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };
+
+export default Camera;
 
 const styles = StyleSheet.create({
   home: {
@@ -197,4 +224,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Camera;
+

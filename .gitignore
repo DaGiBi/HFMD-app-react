@@ -1,0 +1,25 @@
+#app
+hfmd-app/node_modules/
+hfmd-app/.expo/
+hfmd-app/dist/
+hfmd-app/npm-debug.*
+hfmd-app/*.jks
+hfmd-app/*.p8
+hfmd-app/*.p12
+hfmd-app/*.key
+hfmd-app/*.mobileprovision
+hfmd-app/*.orig.*
+hfmd-app/web-build/
+
+
+
+# Temporary files created by Metro to check the health of the file watcher
+.metro-health-check*
+
+
+
+#server
+server/__pycache__/
+
+# Environment
+server/lib
