@@ -56,8 +56,8 @@ const Camera = ({ handleUpload }) => {
           console.log(data.assets[0].uri)
           let newFile = 
           
-          data.assets[0].uri;
-          // data.assets[0].uri.split(",")[1]; //test web
+          // data.assets[0].uri;
+          data.assets[0].uri.split(",")[1]; //test web
           // { 
           //   uri: data.assets[0].uri.split(",")[1],
           //   type: data.assets[0].type.split(",")[1],
