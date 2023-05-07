@@ -14,9 +14,9 @@ import {
 const ProfileScreen = () => {
     return (
         <SafeAreaView>
-            <View>
-                <Text style={{ padding: 10, fontSize: 16 }}>
-                    ProfileScreen
+            <View style={{ marginTop:50, flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold'}}>
+                    Profile Screen
                 </Text>
             </View>
         </SafeAreaView>

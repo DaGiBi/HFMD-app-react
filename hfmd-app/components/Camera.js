@@ -48,23 +48,46 @@ const Camera = ({ handleUpload }) => {
         let data = await ImagePicker.launchImageLibraryAsync({
           mediaTypes: ImagePicker.MediaTypeOptions.Images,
           quality: 1, //1 means high quality
-          // base64: true,
+          base64: true,
 
         });
         if (!data.canceled) {
+
+            // Convert the image to a base64-encoded string
+          // const base64Image = Buffer.from(response.data, 'base64');
+
           console.log(data);
-          console.log(data.assets[0].uri)
+          console.log(data.assets[0].base64)
           let newFile = 
           
-          // data.assets[0].uri;
-          data.assets[0].uri.split(",")[1]; //test web
+          data.assets[0].base64;
+          // data.assets[0].uri.split(",")[1]; //test web
           // { 
           //   uri: data.assets[0].uri.split(",")[1],
           //   type: data.assets[0].type.split(",")[1],
           //   name: data.assets[0].fileName.split(",")[1],
           // };
-          console.log(newFile)
-          handleUpload(newFile);
+          // console.log(newFile)
+
+          let { status } = await Location.requestForegroundPermissionsAsync();
+          if (status !== 'granted') {
+            setErrorMsg('Permission to access location was denied');
+            return;
+          }
+          let location = await Location.getCurrentPositionAsync({});
+          console.log(location)
+
+
+
+
+
+
+
+          handleUpload(
+            {
+              image: newFile,
+              locations: location
+            });
         }
       } else {
         alert('You need to give permissions');
@@ -184,11 +207,12 @@ const styles = StyleSheet.create({
   },
   options: {
     marginBottom: 24,
-    marginTop: 10,
+    marginTop: 100,
     elevation: 4,
     display: 'flex',
+    flex: 1,
     alignItems: 'center',
-    flexDirection: 'column',
+    justifyContent: 'center'
   },
   tab: {
     elevation: 8,

@@ -12,6 +12,8 @@ import {
     FlatList 
   } from 'react-native';
 
+import Card from '../components/Card';
+
 import axios from 'axios';
 const { width, height } = Dimensions.get('screen');
 
@@ -25,7 +27,13 @@ const ListScreen = () => {
         const response = await fetch('http://192.168.0.104:5000/image?name=aqwqli');
         const blob = await response.blob();
         console.log(blob)
-        setImageUri(URL.createObjectURL(blob));
+        // setImageUri(URL.createObjectURL(blob));
+       
+        const reader = new FileReader();
+        reader.readAsDataURL(blob);
+        reader.onload = () => {
+            setImageUri(reader.result);
+        };
         console.log(imageUri);
     };
 
@@ -42,10 +50,10 @@ const ListScreen = () => {
 
     return (
         <ScrollView>
-        <SafeAreaView>
-            <View>
-                <Text style={{ padding: 10, fontSize: 16 }}>
-                    VisualizeScreen
+        <SafeAreaView style={{ flex: 1}}>
+            <View style={{ marginTop:50, flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold'}}>
+                    History Diagonise
                 </Text>
 
                 <View>
@@ -60,11 +68,21 @@ const ListScreen = () => {
                             marginTop: 5,
                             width: width * 0.7,
                           }}
-                    />
-                    
-                    {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
-                
+                    >
+                        <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>
+                            Test Image
+                        </Text>
+            
+                    </TouchableOpacity>
                 </View>
+                <View>
+                    
+                        {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
+                    
+                </View>
+                    
+                
+                
                 <View>
                     <TouchableOpacity title="Get User Images" onPress={fetchMultiImage} 
                         style = {{
@@ -77,13 +95,16 @@ const ListScreen = () => {
                             marginTop: 5,
                             width: width * 0.7,
                           }}
-                    />
+                    >
+                        <Text style={{ color: 'white', fontSize: 20, fontWeight: 'bold' }}>
+                            get User Images
+                        </Text>
+                    </TouchableOpacity>
                     <View>
                         {images.map(image => (
-                            <View key={image.date}>
+                            <View style={styles.card} key={image.date}>
                                 <Text>{image.date}</Text>
-                                <Image
-                                    style={{ width: 200, height: 200 }}
+                                <Image style={styles.image}
                                     source={{ uri: image.data }}
                                 />
                             </View>
@@ -95,8 +116,26 @@ const ListScreen = () => {
         </ScrollView>
     )
 }
+const styles = StyleSheet.create({
+card: {
+    backgroundColor: '#fff',
+    marginTop: 10,
+    borderWidth: 0,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: width * 0.9,
+    borderColor: 'black',
+    borderRadius: 10,
+    padding: 10,
+    borderWidth: 1,
+  },
+  image:{
+    width: 150,
+    height: 150,
 
-
+  }
+})
 export default ListScreen;
 
 

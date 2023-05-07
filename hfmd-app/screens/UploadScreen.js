@@ -25,13 +25,6 @@ const Upload = () => {
     const [prediction, setPrediction] = useState({});
     const [selectedImage, setselectedImage] = useState('');
     const [modalVisible, setModalVisible] = useState(false);
-    
-    function padBase64String(str) {
-      while (str.length % 4 !== 0) {
-        str += '=';
-      }
-      return str;
-    }
 
     const onUploadTest = async (image) => {
         setselectedImage(image.uri);
@@ -53,11 +46,12 @@ const Upload = () => {
         }
       };
 
-      const onUpload = async (image) => {
-        console.log(image.uri)
+      const onUpload = async (data) => {
+        console.log(data)
+        console.log(data.locations)
 
-        setselectedImage(image.uri);
-        const base64Image = image;
+        setselectedImage(data.image);
+        const base64Image = data.image;
         try {
           
           const response = await axios.post(`${BASE_URL}/api/predict`, 
@@ -80,25 +74,25 @@ const Upload = () => {
     
     
       const PositivePrediction = () => (
-        <>
-          <Text style={{ padding: 10, fontSize: 18 }}>Here is your prdiction</Text>
-          <Ionicons name='md-close-circle-sharp' size={72} color='#e24d4d' />
-          <Text style={{ padding: 10, fontSize: 16 }}>
-            HFMD Positive
-          </Text>
+        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <Text style={{ padding: 10, fontSize: 18, fontWeight: 'bold'}}>Prediction Result</Text>
+            <Ionicons name='md-close-circle-sharp' size={72} color='#e24d4d' />
+            <Text style={{ padding: 10, fontSize: 16 }}>
+              HFMD Positive
+            </Text>
           <TouchableOpacity
             style={styles.checkButton}
             onPress={() => setModalVisible(!modalVisible)}
           >
             <Text>Check prediction report</Text>
           </TouchableOpacity>
-        </>
+        </View>
       );
 
       const PredictionImage = () => (
         <Image
           source={{
-            uri: selectedImage || 'https://i.ibb.co/qF8qRnK/upload-1.png',
+            uri: `data:image/png;base64,${selectedImage}`,
           }}
           resizeMode='cover'
           style={styles.thumb}
@@ -148,11 +142,11 @@ const Upload = () => {
     return (
         <SafeAreaView>
             <View>
-              <View>
-                <Text style={{ padding: 100, fontSize: 16 }}>
-                    Upload
-                </Text>
-                <Camera handleUpload={onUpload} />
+              <View style={{ marginTop: 50 ,flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold' }}>
+                      Diagnose
+                  </Text>
+                  <Camera handleUpload={onUpload} />
               </View>
                 
                <View>

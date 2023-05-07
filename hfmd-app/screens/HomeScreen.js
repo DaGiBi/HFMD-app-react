@@ -21,17 +21,29 @@ const Home = () => {
     
 
     return (
-        <SafeAreaView>
-            <View>
-                <Text style={{ padding: 100, fontSize: 16 }}>
-                    Welcome to HFMD Application
+        <SafeAreaView style={{ flex: 1, backgroundColor: 'silver'}}>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                <Text style={{ fontSize: 20, alignItems: 'flex-start', justifyContent: 'flex-start' }}>
+                    Welcome To 
                 </Text>
-                <Ionicons name="medkit" size={100} ></Ionicons>
+                <Text style={{ padding: 10, fontSize: 30 , fontWeight: 'bold'}}>
+                    HandFootDoctor
+                </Text>
+                <Text style={{ paddingBottom: 100, fontSize: 20 }}>
+                    Application
+                </Text>
+                <Ionicons 
+                    name="medkit" size={200} style={styles.Ionicons}
+                ></Ionicons>
                     
             </View>
         </SafeAreaView>
     )
 }
 
-
+const styles = StyleSheet.create({
+    Ionicons:{
+        color: 'blue'
+    }
+})
 export default Home;

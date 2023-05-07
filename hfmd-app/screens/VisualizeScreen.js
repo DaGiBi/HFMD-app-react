@@ -26,27 +26,11 @@ const VisualizeScreen = () => {
 
     return (
         <SafeAreaView>
-            <View>
-                <Text style={{ padding: 10, fontSize: 16 }}>
-                    VisualizeScreen
+            <View style={{ marginTop:50, flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold'}}>
+                    Visualize Screen
                 </Text>
-
-                <View>
-                    <TouchableOpacity title="Get Image" onPress={fetchImage} 
-                        style = {{
-                            elevation: 8,
-                            backgroundColor: '#71b79c',
-                            borderRadius: 18,
-                            paddingVertical: 5,
-                            paddingHorizontal: 12,
-                            marginBottom: 5,
-                            marginTop: 5,
-                            width: width * 0.7,
-                          }}
-                    />
-                    {imageUri && <Image source={{ uri: imageUri }} style={{ width: 200, height: 200 }} />}
-                
-                </View>
+            
             </View>
         </SafeAreaView>
     )
