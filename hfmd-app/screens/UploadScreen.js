@@ -57,8 +57,8 @@ const Upload = () => {
           const response = await axios.post(`${BASE_URL}/api/predict`, 
             {
               image: base64Image, 
-              name: "aqwqli", 
-              password: "1111"
+              name: "najib", 
+              password: "11111"
             }, 
             { headers: {'Content-Type': 'multipart/form-data'} }
           );
