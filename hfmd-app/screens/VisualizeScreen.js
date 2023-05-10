@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyleSheet,
     Dimensions,
@@ -13,11 +13,29 @@ import {
 import axios from 'axios';
 
 import { BarChart, LineChart, PieChart } from 'react-native-chart-kit';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 const screenWidth = Dimensions.get("window").width;
 
 
 
 const VisualizeScreen = () => {
+
+
+    const [mode, setMode] = useState('');    
+    const getData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('@mode');
+        if (value !== null) {
+            setMode(value);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+
 
     const barData = {
         labels: ['January', 'February', 'March', 'April', 'May', 'June'],
@@ -57,17 +75,14 @@ const VisualizeScreen = () => {
           legendFontSize: 15
         },
     ]
-      
-
-
-    return (
-        <ScrollView>
-        <SafeAreaView>
+    
+    const renderOnline = () => {
+        return (
             <TouchableOpacity>
-            <View style={{ marginTop:50, flex: 1, justifyContent: 'center', alignItems: 'center' }} >
-                <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold'}}>
-                    Visualize Screen
-                </Text>
+                <View style={{ marginTop:50, flex: 1, justifyContent: 'center', alignItems: 'center' }} >
+                    <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold'}}>
+                        Visualize Screen
+                    </Text>
                 <BarChart
                     data={barData}
                     width={screenWidth*0.8}
@@ -148,13 +163,22 @@ const VisualizeScreen = () => {
                     /> */}
                     
                     </View>
-    </View>
-
-                
-    </TouchableOpacity>
-        </SafeAreaView>
-        
-            
+                </View>
+            </TouchableOpacity>
+        )
+    }
+    const renderOffline = () => {
+        return (
+            <View>
+                Offline
+            </View>
+        )
+    }
+    return (
+        <ScrollView>
+            <SafeAreaView style={{ flex: 1}}>
+                {mode === 'online' ? renderOnline() : renderOffline()}
+            </SafeAreaView>
         </ScrollView>
     )
 }

@@ -13,14 +13,13 @@ import CustomeTabBarIcon from '../components/CustomTabBarIcon';
 import plus from '../assets/plus.png';
   
 
-
+import { useRoute } from '@react-navigation/native';
 const BottomTab = createBottomTabNavigator();
 const INITIAL_ROUTE_NAME = 'Home';
 
 export default function BottomNavigator({ navigation, route }) {
     
-    
-    
+
     return (
         <BottomTab.Navigator initialRouteName={INITIAL_ROUTE_NAME}>
             <BottomTab.Screen

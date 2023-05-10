@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import {
     StyleSheet,
     Dimensions,
@@ -11,15 +11,27 @@ import {
     Modal,
   } from 'react-native';
 
-
 import { Ionicons } from '@expo/vector-icons';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 const Home = () => {
-    
-    
 
+    const [mode, setMode] = useState('');    
+    const getData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('@mode');
+        if (value !== null) {
+            setMode(value);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    };
+    useEffect(() => {
+        getData();
+    }, []);
+  
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: 'silver'}}>
             <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }} >
@@ -35,6 +47,7 @@ const Home = () => {
                 <Ionicons 
                     name="medkit" size={200} style={styles.Ionicons}
                 ></Ionicons>
+                <Text>{mode}</Text>
                     
             </View>
         </SafeAreaView>

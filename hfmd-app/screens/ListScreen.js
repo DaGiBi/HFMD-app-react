@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import {
     StyleSheet,
     Dimensions,
@@ -16,11 +16,28 @@ import Card from '../components/Card';
 
 import axios from 'axios';
 const { width, height } = Dimensions.get('screen');
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ListScreen = () => {
+    const [mode, setMode] = useState('');    
+    const getData = async () => {
+    try {
+        const value = await AsyncStorage.getItem('@mode');
+        if (value !== null) {
+            setMode(value);
+        }
+    } catch (error) {
+        console.error(error);
+    }
+    };
+    useEffect(() => {
+        getData();
+        fetchMultiImage();
+    },[]);
+
+
 
     const [imageUri, setImageUri] = useState(null);
-
     const [images, setImages] = useState([]);
 
     const fetchImage = async () => {
@@ -47,15 +64,14 @@ const ListScreen = () => {
           setImages(images);
     };
 
-
-    return (
-        <ScrollView>
-        <SafeAreaView style={{ flex: 1}}>
+    const renderOnline = () => {
+        
+        return (
             <View style={{ marginTop:50, flex: 1, justifyContent: 'center', alignItems: 'center' }} >
                 <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold'}}>
-                    History Diagonise
+                    History Diagonise Online
                 </Text>
-
+                
                 <View>
                     <TouchableOpacity title="Get Image" onPress={fetchImage} 
                         style = {{
@@ -110,10 +126,29 @@ const ListScreen = () => {
                             </View>
                         ))}
                     </View>
+                    
                  </View>
             </View>
-        </SafeAreaView>
+        )
+    }
+
+    const renderOffline = () => {
+        return (
+            <View>
+                <Text>
+                    Offline
+                </Text>
+            </View>
+        )
+    }
+    
+    return (
+        <ScrollView>
+            <SafeAreaView style={{ flex: 1}}>
+                {mode === 'online' ? renderOnline() : renderOffline()}
+            </SafeAreaView>
         </ScrollView>
+        
     )
 }
 const styles = StyleSheet.create({

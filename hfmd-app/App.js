@@ -8,6 +8,7 @@ import BottomTabNavigator from './navigation/BottomTabs';
 
 import HomeScreen from './screens/HomeScreen';
 import ListScreen from './screens/ListScreen';
+import WelcomeScreen from './screens/WelcomeScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -16,9 +17,17 @@ export default function App() {
    <NavigationContainer>
     <StatusBar style='dark'/>
     <Stack.Navigator>
+    <Stack.Screen 
+        name='WelcomeScreen'
+        component = {WelcomeScreen}
+        options = {{
+          headerShown: false,
+        }}
+        // initialParams={{mode:"online"}}
+      />
       <Stack.Screen 
         name='HomeScreen'
-        component = { BottomTabNavigator }
+        component = { BottomTabNavigator}
         options = {{
           headerShown: false,
         }}
