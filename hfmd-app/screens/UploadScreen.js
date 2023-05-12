@@ -15,6 +15,7 @@ import {
 
 import { Ionicons } from '@expo/vector-icons';
 import Camera from '../components/Camera';
+import Hfmd_details from '../components/HFMD_details';
 import axios from 'axios';
 import { BASE_URL } from '../constants/index';
 
@@ -139,8 +140,11 @@ const Upload = () => {
           </Modal>
         </View>
       );
+
     return (
+      <ScrollView>
         <SafeAreaView>
+          
             <View>
               <View style={{ marginTop: 50 ,flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={{ padding: 10, fontSize: 40 , fontWeight: 'bold' }}>
@@ -151,10 +155,15 @@ const Upload = () => {
                 
                <View>
                  <PredictionScreen />
-               </View>                    
+               </View>
+              
+                           
             </View>
           <ModalScreen />
+          <Hfmd_details/>
+          
         </SafeAreaView>
+        </ScrollView>
     )
 }
 

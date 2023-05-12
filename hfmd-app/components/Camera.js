@@ -216,7 +216,7 @@ const styles = StyleSheet.create({
   },
   tab: {
     elevation: 8,
-    backgroundColor: '#71b79c',
+    backgroundColor: 'blue',
     borderRadius: 18,
     paddingVertical: 5,
     paddingHorizontal: 12,

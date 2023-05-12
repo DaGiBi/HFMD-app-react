@@ -22,6 +22,7 @@ hfmd-app/web-build/
 server/venv/__pycache__/
 
 # Environment
-server/venv/lib
+server/venv/Lib
+server/venv/Scripts
 server/venv/VGG16vgg16_model.h5
 server/venv/vgg16_model.h5

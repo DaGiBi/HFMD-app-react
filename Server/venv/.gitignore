@@ -1,0 +1,7 @@
+server/venv/__pycache__/
+
+# Environment
+server/venv/Lib
+server/venv/Scripts
+server/venv/Include
+server/venv/images

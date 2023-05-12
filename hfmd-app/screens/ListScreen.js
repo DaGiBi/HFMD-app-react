@@ -76,7 +76,7 @@ const ListScreen = () => {
                     <TouchableOpacity title="Get Image" onPress={fetchImage} 
                         style = {{
                             elevation: 8,
-                            backgroundColor: '#71b79c',
+                            backgroundColor: 'blue',
                             borderRadius: 18,
                             paddingVertical: 5,
                             paddingHorizontal: 12,
@@ -103,7 +103,7 @@ const ListScreen = () => {
                     <TouchableOpacity title="Get User Images" onPress={fetchMultiImage} 
                         style = {{
                             elevation: 8,
-                            backgroundColor: '#71b79c',
+                            backgroundColor: 'blue',
                             borderRadius: 18,
                             paddingVertical: 5,
                             paddingHorizontal: 12,
